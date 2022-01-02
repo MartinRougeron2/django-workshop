@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if post %}
+        <div class="card m-4">
+        <div class="card-header">
+            <h1>{{ post.title }}</h1>
+        </div>
+        <h3>{{ post.desc }}</h3>
+        {{ post.liked_by.all.count }} like it:
+        <ul>
+            {% for user in post.liked_by.all %}
+                <li> {{ user }}</li>
+            {% endfor %}
+
+        </ul>
+        {{ post.disliked_by.all.count }} dislike it:
+        <ul>
+            {% for user in post.disliked_by.all %}
+                <li> {{ user }}</li>
+            {% endfor %}
+
+        </ul>
+
+        <form action="/vote_up/{{ post.id }}">
+            {% csrf_token %}
+
+            <input type="submit" value="Like"/>
+        </form>
+        <form action="/vote_down/{{ post.id }}">
+            {% csrf_token %}
+
+            <input type="submit" value="Dislike"/>
+        </form>
+        <div class="card-header">
+            {% for comment in post.comments.all %}
+                <div class="card m-2">
+                    <div class="card-header">
+                        {{ comment.author }} - {{ comment.pub }}
+                    </div>
+                    <div class="card-body">
+                        {{ comment }}
+                    </div>
+                </div>
+            {% endfor %}
+            <form action="{{ url }}" method="post">
+                {% csrf_token %}
+               {{ form }}
+                <input type="submit">
+            </form>
+        </div>
+    {% else %}
+        <p>No post.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

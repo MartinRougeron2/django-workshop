@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="card col-9 p-4">
+            <form action="{{ url }}/login/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+{% endblock %}
