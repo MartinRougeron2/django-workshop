@@ -57,7 +57,7 @@ def vote_down(request, post_id):
 
 def add_post(request):
     if not request.user.is_authenticated or request.user.is_anonymous:
-        return redirect('login')
+        return redirect('signup')
     form = BirddyForm()
     if request.method == "POST":  # submit
         form = BirddyForm(request.POST)

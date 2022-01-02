@@ -51,10 +51,10 @@ def login(request):
             user = authenticate(request, username=username, password=password)
             if len(User.objects.filter(username=username)) == 0:
                 form.add_error("username", "user doesn't exists")
-                return
+                return render(request, "login.html", context={'form': form})
             if user is None:
                 form.add_error("password", "bad password")
-                return
+                return render(request, "login.html", context={'form': form})
             django_login(request, user)
             return redirect('index')
     else:
