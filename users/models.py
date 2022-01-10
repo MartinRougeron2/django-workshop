@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 
 langs = (
     ("fr", "Français"),
@@ -8,7 +8,7 @@ langs = (
 
 
 class BirddyTor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=AnonymousUser)
     lang = models.CharField(verbose_name="user_language", max_length=2, choices=langs)
 
     def __str__(self):
